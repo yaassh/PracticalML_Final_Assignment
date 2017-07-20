@@ -1,0 +1,2 @@
+predictfinal <- predict(model2, testingset, type="class")
+predictfinal
