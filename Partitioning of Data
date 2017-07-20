@@ -1,0 +1,38 @@
+Installing packages, loading libraries, and setting the seed for reproduceability:
+
+#install.packages("caret")
+#install.packages("randomForest")
+#install.packages("rpart")
+library(caret)
+
+## Loading required package: lattice
+## Loading required package: ggplot2
+library(randomForest) #Random forest for classification and regression
+
+## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.
+
+library(rpart) # Regressive Partitioning and Regression trees
+library(rpart.plot) # Decision Tree plot
+
+# setting the overall seed for reproduceability
+set.seed(666)
+
+trainingset <- read.csv("C:/Users/Acer/Documents/pml-training.csv")
+testingset <- read.csv("C:/Users/Acer/Documents/pml-testing.csv")
+
+dim(trainingset)
+[1] 19622   160
+
+dim(testingset)
+[1]  20 160
+
+trainingset<-trainingset[,colSums(is.na(trainingset)) == 0]
+testingset<-testingset[,colSums(is.na(testingset)) == 0]
+
+subsamples <- createDataPartition(y=trainingset$classe, p=0.75, list=FALSE)
+subTraining <- trainingset[subsamples, ] 
+subTesting <- trainingset[-subsamples, ]
+
+plot(subTraining$classe, col="blue", main="Bar Plot of levels of the variable classe within the subTraining data set", xlab="classe levels", ylab="Frequency")
+
