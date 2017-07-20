@@ -1,0 +1,7 @@
+model2 <- randomForest(classe ~. , data=subTraining, method="class")
+
+# Predicting:
+prediction2 <- predict(model2, subTesting, type = "class")
+
+# Test results on subTesting data set:
+confusionMatrix(prediction2, subTesting$classe)
